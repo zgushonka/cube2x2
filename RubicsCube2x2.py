@@ -46,31 +46,24 @@ class Side2x2(object):
 
     def turn_cw(self):
         """Turn Side CW"""
-        first = self.tiles[0]
-        self.tiles[0] = self.tiles[3]
+        last = self.tiles[3]
         self.tiles[3] = self.tiles[2]
         self.tiles[2] = self.tiles[1]
-        self.tiles[1] = first
+        self.tiles[1] = self.tiles[0]
+        self.tiles[0] = last
         return self
 
     def turn_ccw(self):
         """Turn Side CCW"""
-        last = self.tiles[3]
-        self.tiles[3] = self.tiles[0]
+        first = self.tiles[0]
         self.tiles[0] = self.tiles[1]
         self.tiles[1] = self.tiles[2]
-        self.tiles[2] = last
+        self.tiles[2] = self.tiles[3]
+        self.tiles[3] = first
         return self
-
-    # def set_12(self, newValue):
-    #     self.tiles[1:3] = newValue
 
     def get_12(self):
         return self.tiles[1:3]
-
-    def get_12_reversed(self):
-        return [self.tiles[2], self.tiles[1]]
-        # return self.tiles[1:3]
 
 
 class SideKey(Enum):
@@ -87,10 +80,10 @@ class RubicsCube2x2(object):
     """
     RubicksCube 2x2 model. Contains Dictionary<SideKey:Side2x2>
 
-       1      t        w
-       2      f        o
-       3      bm       y
-     5 4 6  l bk r   g r b
+       u        w
+       f        o
+       d        y
+     l b r    g r b
     """
 
     def __init__(self):
@@ -172,21 +165,21 @@ class RubicsCube2x2(object):
         """Rotate all Cube Left"""
         self._sides[SideKey.FRONT] = self._sides[SideKey.FRONT].turn_ccw()
         self._sides[SideKey.BACK] = self._sides[SideKey.BACK].turn_cw()
-        up_side = self._sides[SideKey.UP].turn_ccw()
+        up_side = self._sides[SideKey.UP]
         self._sides[SideKey.UP] = self._sides[SideKey.RIGHT].turn_ccw()
         self._sides[SideKey.RIGHT] = self._sides[SideKey.DOWN].turn_ccw()
         self._sides[SideKey.DOWN] = self._sides[SideKey.LEFT].turn_ccw()
-        self._sides[SideKey.LEFT] = up_side
+        self._sides[SideKey.LEFT] = up_side.turn_ccw()
 
     def rotate_right(self):
         """Rotate all Cube Right"""
         self._sides[SideKey.FRONT] = self._sides[SideKey.FRONT].turn_cw()
         self._sides[SideKey.BACK] = self._sides[SideKey.BACK].turn_ccw()
-        up_side = self._sides[SideKey.UP].turn_cw()
+        up_side = self._sides[SideKey.UP]
         self._sides[SideKey.UP] = self._sides[SideKey.LEFT].turn_cw()
         self._sides[SideKey.LEFT] = self._sides[SideKey.DOWN].turn_cw()
         self._sides[SideKey.DOWN] = self._sides[SideKey.RIGHT].turn_cw()
-        self._sides[SideKey.RIGHT] = up_side
+        self._sides[SideKey.RIGHT] = up_side.turn_cw()
 
     def R(self):
         """Right 1/4 turn rotation up"""
@@ -301,7 +294,7 @@ class RubicsCube2x2(object):
             self.U()
         if i == 18:
             self.Ui()
-    
+
     def do_random_move(self):
         i = randint(1, 18)
         self.do_move(i)
@@ -313,7 +306,7 @@ class RubicsCube2x2(object):
             move = self.do_random_move()
             seed.append(move)
         return seed
-        
+
     def is_solved(self):
         for key, side in self._sides.items():
             first_tile = side.tiles[0]
