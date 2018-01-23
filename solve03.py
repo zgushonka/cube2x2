@@ -4,8 +4,6 @@
 from RubicsCube2x2 import RubicsCube2x2
 from print_cube_console import show_cube_console
 
-import RubicsCube2x2_magic
-
 #     B Y
 #     B G
 # R O Y R Y O
@@ -22,6 +20,7 @@ import RubicsCube2x2_magic
 #      b         r
 
 def create_cube():
+    """Create cube and apply seed"""
     new_cube = RubicsCube2x2()
     show_cube_console(new_cube)
 
@@ -33,6 +32,7 @@ def create_cube():
     return new_cube
 
 def solve_cube(cube):
+    """manual solution"""
     show_cube_console(cube)
     cube.turn_right()
     cube.turn_up()
@@ -47,13 +47,12 @@ def solve_cube(cube):
     cube.L()
 
     cube.D()
-    
 
 
-cube = create_cube()
-show_cube_console(cube)
+CUBE = create_cube()
+show_cube_console(CUBE)
 
-solve_cube(cube)
-show_cube_console(cube)
+solve_cube(CUBE)
+show_cube_console(CUBE)
 
-print 'is solved - ', cube.is_solved()
+print('is solved - ', CUBE.is_solved())
