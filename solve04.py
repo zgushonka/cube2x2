@@ -37,7 +37,8 @@ def solve_cube(cube):
     while not cube.is_solved():
         move = cube.do_random_move()
         solve_seed.append(move)
-    print solve_seed.count()
+    print 'moves to solve -', len(solve_seed)
+    print ''
 
 
 cube = create_cube()
