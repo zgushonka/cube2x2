@@ -81,9 +81,9 @@ class RubicsCube2x2(object):
     RubicksCube 2x2 model. Contains Dictionary<SideKey:Side2x2>
 
        u        w
-       f        o
+     l f r    g o b
        d        y
-     l b r    g r b
+       b        r
     """
 
     def __init__(self):
