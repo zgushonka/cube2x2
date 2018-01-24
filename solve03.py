@@ -22,18 +22,17 @@ from print_cube_console import show_cube_console
 def create_cube():
     """Create cube and apply seed"""
     new_cube = RubicsCube2x2()
-    show_cube_console(new_cube)
+    # show_cube_console(new_cube)
 
-    seed = [17, 16, 6, 3, 18, 15, 10, 9, 6, 10, 16, 14, 4, 11, 3, 3, \
-    10, 10, 2, 14, 4, 16, 3, 2, 18, 6, 14, 17, 12, 5, 18, 12, 14, 17, 3, \
-    14, 6, 14, 15, 13, 1, 10, 13, 8, 5, 1, 12, 2, 10, 11]
-    for i in seed:
-        new_cube.do_move(i)
+    seed = [10, 9, 17, 14, 11, 8, 3, 2, 17, 3, 9, 7, 15, 4, 14, 14, 3, 3, \
+            13, 7, 15, 9, 14, 13, 11, 17, 7, 10, 5, 16, 11, 5, 7, 10, 14, \
+            7, 17, 7, 8, 6, 12, 3, 6, 1, 16, 12, 5, 13, 3, 4]
+    for move in seed:
+        new_cube.do_move(move)
     return new_cube
 
 def solve_cube(cube):
     """manual solution"""
-    show_cube_console(cube)
     cube.turn_right()
     cube.turn_up()
     cube.turn_right()

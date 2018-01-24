@@ -258,45 +258,46 @@ class RubicsCube2x2(object):
         self.rotate_left()
 
     def do_move(self, i):
-        if i == 1:
-            self.turn_left()
-        if i == 2:
-            self.turn_right()
-        if i == 3:
-            self.turn_up()
-        if i == 4:
-            self.turn_down()
-        if i == 5:
-            self.rotate_left()
-        if i == 6:
-            self.rotate_right()
-        if i == 7:
+        if i == 0:
             self.R()
-        if i == 8:
+        if i == 1:
             self.Ri()
-        if i == 9:
+        if i == 2:
             self.L()
-        if i == 10:
+        if i == 3:
             self.Li()
-        if i == 11:
+        if i == 4:
             self.B()
-        if i == 12:
+        if i == 5:
             self.Bi()
-        if i == 13:
+        if i == 6:
             self.D()
-        if i == 14:
+        if i == 7:
             self.Di()
-        if i == 15:
+        if i == 8:
             self.F()
-        if i == 16:
+        if i == 9:
             self.Fi()
-        if i == 17:
+        if i == 10:
             self.U()
-        if i == 18:
+        if i == 11:
             self.Ui()
 
+        if i == 12:
+            self.turn_left()
+        if i == 13:
+            self.turn_right()
+        if i == 14:
+            self.turn_up()
+        if i == 15:
+            self.turn_down()
+        if i == 16:
+            self.rotate_left()
+        if i == 17:
+            self.rotate_right()
+
     def do_random_move(self):
-        i = randint(1, 18)
+        i = randint(0, 12)
         self.do_move(i)
         return i
 

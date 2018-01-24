@@ -8,16 +8,11 @@ from print_cube_console import show_cube_console
 #      u         w
 #    l f r     g o b
 #      d         y
-#      b         r 
+#      b         r
 
 cube = RubicsCube2x2()
-cube2 = RubicsCube2x2()
-show_cube_console(cube)
-print cube.is_equal_to(cube2)
-
-seed = cube.do_n_random_moves(50)
-print seed
 show_cube_console(cube)
 
-
-print cube.is_equal_to(cube2)
+seed = cube.do_n_random_moves(5)
+print(seed)
+show_cube_console(cube)

@@ -25,11 +25,11 @@ def create_cube():
     new_cube = RubicsCube2x2()
     show_cube_console(new_cube)
 
-    seed = [3, 4, 1, 16, 13, 18, 5, 12, 13, 18, 11, 6, 11, 3, 7, 4, \
-            12, 2, 13, 2, 15, 1, 14, 3, 2, 13, 10, 18, 1, 12, 12, 8, 15, 12, \
-            16, 16, 8, 9, 8, 4, 14, 1, 3, 2, 3, 13, 5, 16, 4, 4]
-    for i in seed:
-        new_cube.do_move(i)
+    seed = [14, 15, 12, 9, 6, 11, 16, 5, 6, 11, 4, 17, 4, 14, 0, 15, 5, \
+            13, 6, 13, 8, 12, 7, 14, 13, 6, 3, 11, 12, 5, 5, 1, 8, 5, 9, \
+            9, 1, 2, 1, 15, 7, 12, 14, 13, 14, 6, 16, 9, 15, 15]
+    for move in seed:
+        new_cube.do_move(move)
     return new_cube
 
 def solve_cube(cube):
@@ -74,4 +74,4 @@ show_cube_console(cube)
 solve_cube(cube)
 show_cube_console(cube)
 
-print 'is solved - ', cube.is_solved()
+print('is solved - ', cube.is_solved())
