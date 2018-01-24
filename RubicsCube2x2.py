@@ -297,7 +297,7 @@ class RubicsCube2x2(object):
             self.rotate_right()
 
     def do_random_move(self):
-        i = randint(0, 12)
+        i = randint(0, 11)
         self.do_move(i)
         return i
 
