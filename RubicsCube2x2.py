@@ -20,7 +20,7 @@ class Tile(object):
     def __init__(self, color):
         self.color = color
 
-    def is_equal_to(self, tile): # -> bool:
+    def is_equal_to(self, tile) -> bool:
         """Compare with Tile. Returns bool."""
         return self.color is tile.color
 
@@ -35,14 +35,14 @@ class Side2x2(object):
     def __init__(self, color):
         self.tiles = [Tile(color)] * 4
 
-    def is_equal_to(self, side): # -> bool:
-        """Compare with Side. Returns bool."""
-        for index in range(0, 4):
-            tile = self.tiles[index]
-            other_tile = side.tiles[index]
-            if not tile.is_equal_to(other_tile):
-                return False
-        return True
+    # def is_equal_to(self, side): -> bool:
+    #     """Compare with Side. Returns bool."""
+    #     for index in range(0, 4):
+    #         tile = self.tiles[index]
+    #         other_tile = side.tiles[index]
+    #         if not tile.is_equal_to(other_tile):
+    #             return False
+    #     return True
 
     def turn_cw(self):
         """Turn Side CW"""
@@ -92,8 +92,8 @@ class RubicsCube2x2(object):
         self._sides[SideKey.FRONT] = Side2x2(Color.ORANGE)
         self._sides[SideKey.DOWN] = Side2x2(Color.YELLOW)
         self._sides[SideKey.BACK] = Side2x2(Color.RED)
-        self._sides[SideKey.LEFT] = Side2x2(Color.GREEN)
-        self._sides[SideKey.RIGHT] = Side2x2(Color.BLUE)
+        self._sides[SideKey.LEFT] = Side2x2(Color.BLUE)
+        self._sides[SideKey.RIGHT] = Side2x2(Color.GREEN)
 
     def up_side(self):
         return self._sides[SideKey.UP]
@@ -113,12 +113,12 @@ class RubicsCube2x2(object):
     def right_side(self):
         return self._sides[SideKey.RIGHT]
 
-    def is_equal_to(self, cube): # -> bool:
-        """Compare with cube. Returns bool."""
-        for side_key in SideKey:
-            if not self._sides[side_key].is_equal_to(cube._sides[side_key]):
-                return False
-        return True
+    # def is_equal_to(self, cube): # -> bool:
+    #     """Compare with cube. Returns bool."""
+    #     for side_key in SideKey:
+    #         if not self._sides[side_key].is_equal_to(cube._sides[side_key]):
+    #             return False
+    #     return True
 
     def turn_left(self):
         """Turn all Cube Left"""
@@ -260,41 +260,59 @@ class RubicsCube2x2(object):
     def do_move(self, i):
         if i == 0:
             self.R()
+            return "R"
         if i == 1:
             self.Ri()
+            return 'Ri'
         if i == 2:
             self.L()
+            return 'L'
         if i == 3:
             self.Li()
+            return 'Li'
         if i == 4:
             self.B()
+            return 'B'
         if i == 5:
             self.Bi()
+            return 'Bi'
         if i == 6:
             self.D()
+            return 'D'
         if i == 7:
             self.Di()
+            return 'Di'
         if i == 8:
             self.F()
+            return 'F'
         if i == 9:
             self.Fi()
+            return 'Fi'
         if i == 10:
             self.U()
+            return 'U'
         if i == 11:
             self.Ui()
+            return 'Ui'
 
         if i == 12:
             self.turn_left()
+            return 'turn_left'
         if i == 13:
             self.turn_right()
+            return 'turn_right'
         if i == 14:
             self.turn_up()
+            return 'turn_up'
         if i == 15:
             self.turn_down()
+            return 'turn_down'
         if i == 16:
             self.rotate_left()
+            return 'rotate_left'
         if i == 17:
             self.rotate_right()
+            return 'rotate_right'
 
     def do_random_move(self):
         i = randint(0, 11)
@@ -308,7 +326,7 @@ class RubicsCube2x2(object):
             seed.append(move)
         return seed
 
-    def is_solved(self):
+    def is_solved(self) -> bool:
         for key, side in self._sides.items():
             first_tile = side.tiles[0]
             for tile in side.tiles:

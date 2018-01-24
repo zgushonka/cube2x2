@@ -2,22 +2,33 @@
 """ solution test """
 
 # import sys
-# sys.setrecursionlimit(10000)
+# print(sys.version)
 
 import random
 from copy import deepcopy
 from RubicsCube2x2 import RubicsCube2x2
 from print_cube_console import show_cube_console
 
+SEED_MOVES_COUNT = 4
 
 def create_cube():
     """Create cube and apply seed"""
     new_cube = RubicsCube2x2()
 
-    # seed = [8, 2, 8, 4, 7, 4, 3, 10, 11, 6, 9, 2]
-    seed = [8, 2, 8, 4, 7]
-    for i in seed:
-        new_cube.do_move(i)
+    while True:
+        seed = new_cube.do_n_random_moves(SEED_MOVES_COUNT)
+        
+        if not new_cube.is_solved():
+            # print seed
+            temp_cube = RubicsCube2x2()
+            print('seed moves - ', end='')
+            for move in seed:
+                print(temp_cube.do_move(move), end=' ')
+            print('\n')
+            # print cube
+            show_cube_console(new_cube)
+
+            break
     return new_cube
 
 
@@ -27,7 +38,7 @@ def solve_cube(cube):
     dynamic_solver(cube, -1, [])
 
 SOLUTIONS = []
-DEPTH_LIMIT = 5
+DEPTH_LIMIT = SEED_MOVES_COUNT
 
 def dynamic_solver(cube, move, solve_seed):
     if SOLUTIONS:
@@ -57,9 +68,7 @@ def dynamic_solver(cube, move, solve_seed):
             dynamic_solver(my_cube, next_move, my_solve_seed)
 
 
-
 CUBE = create_cube()
-show_cube_console(CUBE)
 
 solve_cube(CUBE)
 
@@ -71,11 +80,11 @@ for index in range(3):
         continue
 
     solution = SOLUTIONS[index]
-    print("solution - {}. moves - {}".format(index, len(solution)))
-    print(solution)
+    print("solution #{}. moves - {}".format(index, len(solution)))
     cube = deepcopy(CUBE)
     for move in solution:
-        cube.do_move(move)
+        print(cube.do_move(move), end=' ')
+    print('')
     print('is solved - ', cube.is_solved())
     print('')
 
