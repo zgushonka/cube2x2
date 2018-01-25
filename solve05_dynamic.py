@@ -9,14 +9,14 @@ from copy import deepcopy
 from RubicsCube2x2 import RubicsCube2x2
 from print_cube_console import show_cube_console
 
-SEED_MOVES_COUNT = 12
+SEED_MOVES_COUNT = 6
 
 def create_cube():
     """Create cube and apply seed"""
     new_cube = RubicsCube2x2()
 
     while True:
-        seed = new_cube.do_n_random_moves(SEED_MOVES_COUNT * 2)
+        seed = new_cube.do_n_random_moves(SEED_MOVES_COUNT)
         
         if not new_cube.is_solved():
             # print seed
