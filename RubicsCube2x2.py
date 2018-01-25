@@ -258,6 +258,7 @@ class RubicsCube2x2(object):
         self.rotate_left()
 
     def do_move(self, i):
+        # unique moves
         if i == 0:
             self.R()
             return "R"
@@ -265,36 +266,39 @@ class RubicsCube2x2(object):
             self.Ri()
             return 'Ri'
         if i == 2:
-            self.L()
-            return 'L'
-        if i == 3:
-            self.Li()
-            return 'Li'
-        if i == 4:
-            self.B()
-            return 'B'
-        if i == 5:
-            self.Bi()
-            return 'Bi'
-        if i == 6:
-            self.D()
-            return 'D'
-        if i == 7:
-            self.Di()
-            return 'Di'
-        if i == 8:
             self.F()
             return 'F'
-        if i == 9:
+        if i == 3:
             self.Fi()
             return 'Fi'
-        if i == 10:
+        if i == 4:
             self.U()
             return 'U'
-        if i == 11:
+        if i == 5:
             self.Ui()
             return 'Ui'
 
+        # other moves
+        if i == 6:
+            self.L()
+            return 'L'
+        if i == 7:
+            self.Li()
+            return 'Li'
+        if i == 8:
+            self.B()
+            return 'B'
+        if i == 9:
+            self.Bi()
+            return 'Bi'
+        if i == 10:
+            self.D()
+            return 'D'
+        if i == 11:
+            self.Di()
+            return 'Di'
+        
+        # non mutate moves
         if i == 12:
             self.turn_left()
             return 'turn_left'
@@ -315,7 +319,7 @@ class RubicsCube2x2(object):
             return 'rotate_right'
 
     def do_random_move(self):
-        i = randint(0, 11)
+        i = randint(0, 5)
         self.do_move(i)
         return i
 
