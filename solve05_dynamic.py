@@ -78,7 +78,7 @@ CUBE = create_cube()
 solve_cube(CUBE)
 
 # SOLUTIONS.sort(key=len)
-print('solutions - ', len(SOLUTIONS))
+print('solutions - ', len(SOLUTIONS), end='\n\n')
 
 for index in range(1):
     if index >= len(SOLUTIONS):
@@ -89,7 +89,5 @@ for index in range(1):
     cube = deepcopy(CUBE)
     for move in solution:
         print(cube.do_move(move), end=' ')
-    print('')
-    print('is solved - ', cube.is_solved())
-    print('')
+    print('\nis solved - ', cube.is_solved(), end='\n\n')
 
