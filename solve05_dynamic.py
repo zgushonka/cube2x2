@@ -80,7 +80,7 @@ solve_cube(CUBE)
 # SOLUTIONS.sort(key=len)
 print('solutions - ', len(SOLUTIONS))
 
-for index in range(1):
+for index in range(2):
     if index >= len(SOLUTIONS):
         continue
 
