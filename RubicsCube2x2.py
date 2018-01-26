@@ -318,9 +318,13 @@ class RubicsCube2x2(object):
             self.rotate_right()
             return 'rotate_right'
 
-    def do_random_move(self):
-        i = randint(0, 5)
-        self.do_move(i)
+    def do_random_move(self, prevoius_move = 1):
+        if prevoius_move >= 0:
+            while True:
+            next_move = randint(0, 5)
+            if (prevoius_move ^ 1) != next_move: #don't do back move
+                self.do_move(i)
+                break
         return i
 
     def do_n_random_moves(self, n):
