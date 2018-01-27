@@ -58,7 +58,7 @@ def solve_cube(cube, limit) -> list:
         return cube.path
 
     direct_layer_cubes = {cube_state.cube.hash(): cube_state}
-    new_cube_state = CubeState(RubicsCube2x2())
+    new_cube_state = CubeState()
     inverse_layer_cube = {new_cube_state.cube.hash(): new_cube_state}
     while True:
         direct_layer_cubes = make_next_layer_for_layer(direct_layer_cubes)
@@ -82,7 +82,7 @@ def solve_cube(cube, limit) -> list:
 
 def main():
     depth = 7
-    seed_moves_count = randint(3, 20)
+    seed_moves_count = randint(7, 20)
 
     cube = create_cube(seed_moves_count)
     solution = solve_cube(cube, depth)
