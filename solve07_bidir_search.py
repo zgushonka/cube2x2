@@ -5,6 +5,7 @@ from RubicsCube2x2 import RubicsCube2x2
 from create_random_cube import create_cube
 from solve06_CubeState import CubeState
 from print_solution import print_solution
+from random import randint
 
 from print_cube_console import show_cube_console
 
@@ -72,18 +73,18 @@ def solve_cube(cube, limit) -> list:
             path = combine_solution(match[0], match[1])
             return path
 
-        for hash, cube_state in inverse_layer_cube.items():
-            current_depth = len(cube_state.path)
-            if current_depth > limit:
-                print('current_depth > limit')
-                return []
+        cube_state = list(inverse_layer_cube.values())[0] # get first element in dict
+        current_depth = len(cube_state.path)
+        if current_depth >= limit:
+            print('current_depth > limit')
+            return []
 
 
 def main():
     depth = 7
-    seed_moves_count = depth
+    seed_moves_count = randint(3, 20)
 
-    cube = create_cube(seed_moves_count * 4)
+    cube = create_cube(seed_moves_count)
     solution = solve_cube(cube, depth)
     if solution:
         print_solution(cube, solution)
