@@ -12,11 +12,11 @@ def make_next_layer_for_cube(cube_state) -> list:
     """ we need to go deeper """
     next_layer = []
     for next_move in range(0, 6): # sequentive next move
-        previous_move = -1 
+        previous_move = -1
         if cube_state.path:
             previous_move = cube_state.path[-1]
         if (previous_move ^ 1) != next_move: # if next_move is not back move, then continue
-            next_layer.append( CubeState(cube_state.cube, cube_state.path, next_move) )
+            next_layer.append(CubeState(cube_state.cube, cube_state.path, next_move))
     return next_layer
 
 
@@ -72,7 +72,7 @@ def solve_cube(cube, limit) -> list:
         if match:
             path = combine_solution(match[0], match[1])
             return path
-        
+
         current_depth = len(inverse_layer_cube[0].path)
         if current_depth > limit:
             print('current_depth > limit')
@@ -80,7 +80,7 @@ def solve_cube(cube, limit) -> list:
 
 
 def main():
-    depth = 3
+    depth = 4
     seed_moves_count = depth
 
     cube = create_cube(seed_moves_count * 2)

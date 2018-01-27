@@ -49,7 +49,7 @@ class Side2x2(object):
                 return False
         return True
 
-    def code(self, offset = 0) -> str:
+    def code(self, offset=0) -> str:
         result = []
         for index in range(4):
             result.append(self.tiles[index].color.value)
@@ -315,7 +315,9 @@ class RubicsCube2x2(object):
         if i == 11:
             self.Di()
             return 'Di'
-        
+
+        return 'none'
+
         # non mutate moves
         if i == 12:
             self.turn_left()
