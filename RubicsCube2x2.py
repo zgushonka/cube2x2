@@ -42,6 +42,13 @@ class Side2x2(object):
                 return True
         return False
 
+    def is_solved(self) -> bool:
+        for index in range(1, 4):
+            tile = self.tiles[index]
+            if not tile.is_equal_to(self.tiles[0]):
+                return False
+        return True
+
     def code(self, offset = 0) -> str:
         result = []
         for index in range(4):
@@ -127,6 +134,8 @@ class RubicsCube2x2(object):
                 if my_side.is_equal_to(other_side):
                     equal_sides += 1
                     break
+            if equal_sides == 0:
+                return False
         return equal_sides == 6
 
     def turn_left(self):
@@ -339,15 +348,13 @@ class RubicsCube2x2(object):
         for i in range(0, n):
             prevoius_move = -1
             if seed:
-                prevoius_move = seed[-1] 
+                prevoius_move = seed[-1]
             move = self.do_random_move(prevoius_move)
             seed.append(move)
         return seed
 
     def is_solved(self) -> bool:
         for key, side in self.sides.items():
-            first_tile = side.tiles[0]
-            for tile in side.tiles:
-                if not tile.is_equal_to(first_tile):
-                    return False
+            if not side.is_solved():
+                return False
         return True

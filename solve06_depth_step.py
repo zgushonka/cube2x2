@@ -43,7 +43,7 @@ def main():
     depth = 4
     seed_moves_count = depth
 
-    cube = create_cube(seed_moves_count * 3)
+    cube = create_cube(seed_moves_count)
     solution = solve_cube(cube, depth)
     if solution:
         print_solution(cube, solution)

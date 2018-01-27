@@ -11,12 +11,15 @@ from print_cube_console import show_cube_console
 #      b         r
 
 cube = RubicsCube2x2()
-show_cube_console(cube)
+cube.Di()
+cube.R()
 
 cube2 = RubicsCube2x2()
-cube2.turn_left()
 cube2.U()
-cube2.Di()
+cube2.Li()
+cube2.turn_left()
+
+show_cube_console(cube)
 show_cube_console(cube2)
 
 print(cube.is_equal_to(cube2))
