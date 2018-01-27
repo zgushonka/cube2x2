@@ -28,10 +28,8 @@ def solve_cube(cube, limit) -> list:
     while True:
         next_layer_cubes = []
         for this_cube in this_layer_cubes:
-            
             if len(this_cube.path) > limit:
                 return []
-            
             next_layer = make_next_layer_for(this_cube)
             for next_layer_cube in next_layer:
                 if next_layer_cube.is_solved():
@@ -41,19 +39,16 @@ def solve_cube(cube, limit) -> list:
         this_layer_cubes = next_layer_cubes
 
 
-DEPTH_LIMIT = 4
-SEED_MOVES_COUNT = DEPTH_LIMIT
+def main():
+    depth = 4
+    seed_moves_count = depth
 
-CUBE = create_cube(SEED_MOVES_COUNT * 3)
+    cube = create_cube(seed_moves_count * 3)
+    solution = solve_cube(cube, depth)
+    if solution:
+        print_solution(cube, solution)
+    else:
+        print('No solution found for depth {}.'.format(depth))
 
-for key, side in CUBE._sides.items():
-    for i in range(4):
-        print(side.code(i))
-    print('')
-        
-
-solution = solve_cube(CUBE, DEPTH_LIMIT)
-if solution:
-    print_solution(CUBE, solution)
-else:
-    print('No solution found for depth {}.'.format(DEPTH_LIMIT))
+if __name__ == '__main__':
+    main()
