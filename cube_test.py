@@ -20,6 +20,8 @@ cube2.Li()
 cube2.turn_left()
 
 show_cube_console(cube)
+print(cube.hash())
 show_cube_console(cube2)
+print(cube2.hash())
 
 print(cube.is_equal_to(cube2))

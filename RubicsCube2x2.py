@@ -35,12 +35,12 @@ class Side2x2(object):
     def __init__(self, color):
         self.tiles = [Tile(color)] * 4
 
-    def is_equal_to(self, side) -> bool:
-        """Compare with Side. Returns bool."""
-        for index in range(0, 4):
-            if self.code(index) == side.code():
-                return True
-        return False
+    # def is_equal_to(self, side) -> bool:
+    #     """Compare with Side. Returns bool."""
+    #     for index in range(0, 4):
+    #         if self.hash(index) == side.hash():
+    #             return True
+    #     return False
 
     def is_solved(self) -> bool:
         for index in range(1, 4):
@@ -49,13 +49,13 @@ class Side2x2(object):
                 return False
         return True
 
-    def code(self, offset=0) -> str:
+    def hash(self, offset=0) -> str:
         result = []
         for index in range(4):
             result.append(self.tiles[index].color.value)
         for i in range(offset):
             result.insert(0, result.pop())
-        return result
+        return ''.join(result)
 
     def turn_cw(self):
         """Turn Side CW"""
@@ -77,6 +77,7 @@ class Side2x2(object):
 
     def get_12(self):
         return self.tiles[1:3]
+
 
 
 class SideKey(Enum):
@@ -126,17 +127,17 @@ class RubicsCube2x2(object):
     def right_side(self):
         return self.sides[SideKey.RIGHT]
 
-    def is_equal_to(self, cube): # -> bool:
-        """Compare with cube. Returns bool."""
-        equal_sides = 0
-        for key, my_side in self.sides.items():
-            for key, other_side in cube.sides.items():
-                if my_side.is_equal_to(other_side):
-                    equal_sides += 1
-                    break
-            if equal_sides == 0:
-                return False
-        return equal_sides == 6
+    # def is_equal_to(self, cube): # -> bool:
+    #     """Compare with cube. Returns bool."""
+    #     equal_sides = 0
+    #     for key, my_side in self.sides.items():
+    #         for key, other_side in cube.sides.items():
+    #             if my_side.is_equal_to(other_side):
+    #                 equal_sides += 1
+    #                 break
+    #         if equal_sides == 0:
+    #             return False
+    #     return equal_sides == 6
 
     def turn_left(self):
         """Turn all Cube Left"""
@@ -360,3 +361,9 @@ class RubicsCube2x2(object):
             if not side.is_solved():
                 return False
         return True
+
+    def hash(self) -> str:
+        hash = ''
+        for key, side in self.sides.items():
+            hash += side.hash()
+        return hash
