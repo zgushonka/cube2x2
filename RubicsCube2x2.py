@@ -35,14 +35,20 @@ class Side2x2(object):
     def __init__(self, color):
         self.tiles = [Tile(color)] * 4
 
-    # def is_equal_to(self, side): -> bool:
-    #     """Compare with Side. Returns bool."""
-    #     for index in range(0, 4):
-    #         tile = self.tiles[index]
-    #         other_tile = side.tiles[index]
-    #         if not tile.is_equal_to(other_tile):
-    #             return False
-    #     return True
+    def is_equal_to(self, side) -> bool:
+        """Compare with Side. Returns bool."""
+        for index in range(0, 4):
+            if self.code(index) == side.code():
+                return True
+        return False
+
+    def code(self, offset = 0) -> str:
+        result = []
+        for index in range(4):
+            result.append(self.tiles[index].color.value)
+        for i in range(offset):
+            result.insert(0, result.pop())
+        return result
 
     def turn_cw(self):
         """Turn Side CW"""
@@ -87,117 +93,120 @@ class RubicsCube2x2(object):
     """
 
     def __init__(self):
-        self._sides = {}
-        self._sides[SideKey.UP] = Side2x2(Color.WHITE)
-        self._sides[SideKey.FRONT] = Side2x2(Color.ORANGE)
-        self._sides[SideKey.DOWN] = Side2x2(Color.YELLOW)
-        self._sides[SideKey.BACK] = Side2x2(Color.RED)
-        self._sides[SideKey.LEFT] = Side2x2(Color.BLUE)
-        self._sides[SideKey.RIGHT] = Side2x2(Color.GREEN)
+        self.sides = {}
+        self.sides[SideKey.UP] = Side2x2(Color.WHITE)
+        self.sides[SideKey.FRONT] = Side2x2(Color.ORANGE)
+        self.sides[SideKey.DOWN] = Side2x2(Color.YELLOW)
+        self.sides[SideKey.BACK] = Side2x2(Color.RED)
+        self.sides[SideKey.LEFT] = Side2x2(Color.BLUE)
+        self.sides[SideKey.RIGHT] = Side2x2(Color.GREEN)
 
     def up_side(self):
-        return self._sides[SideKey.UP]
+        return self.sides[SideKey.UP]
 
     def down_side(self):
-        return self._sides[SideKey.DOWN]
+        return self.sides[SideKey.DOWN]
 
     def front_side(self):
-        return self._sides[SideKey.FRONT]
+        return self.sides[SideKey.FRONT]
 
     def back_side(self):
-        return self._sides[SideKey.BACK]
+        return self.sides[SideKey.BACK]
 
     def left_side(self):
-        return self._sides[SideKey.LEFT]
+        return self.sides[SideKey.LEFT]
 
     def right_side(self):
-        return self._sides[SideKey.RIGHT]
+        return self.sides[SideKey.RIGHT]
 
-    # def is_equal_to(self, cube): # -> bool:
-    #     """Compare with cube. Returns bool."""
-    #     for side_key in SideKey:
-    #         if not self._sides[side_key].is_equal_to(cube._sides[side_key]):
-    #             return False
-    #     return True
+    def is_equal_to(self, cube): # -> bool:
+        """Compare with cube. Returns bool."""
+        equal_sides = 0
+        for key, my_side in self.sides.items():
+            for key, other_side in cube.sides.items():
+                if my_side.is_equal_to(other_side):
+                    equal_sides += 1
+                    break
+        return equal_sides == 6
 
     def turn_left(self):
         """Turn all Cube Left"""
-        self._sides[SideKey.UP] = self._sides[SideKey.UP].turn_cw()
-        self._sides[SideKey.DOWN] = self._sides[SideKey.DOWN].turn_ccw()
-        front_side = self._sides[SideKey.FRONT]
-        self._sides[SideKey.FRONT] = self._sides[SideKey.RIGHT]
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.BACK].turn_cw().turn_cw()
-        self._sides[SideKey.BACK] = self._sides[SideKey.LEFT].turn_cw().turn_cw()
-        self._sides[SideKey.LEFT] = front_side
+        self.sides[SideKey.UP] = self.sides[SideKey.UP].turn_cw()
+        self.sides[SideKey.DOWN] = self.sides[SideKey.DOWN].turn_ccw()
+        front_side = self.sides[SideKey.FRONT]
+        self.sides[SideKey.FRONT] = self.sides[SideKey.RIGHT]
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.BACK].turn_cw().turn_cw()
+        self.sides[SideKey.BACK] = self.sides[SideKey.LEFT].turn_cw().turn_cw()
+        self.sides[SideKey.LEFT] = front_side
 
     def turn_right(self):
         """Turn all Cube Right"""
-        self._sides[SideKey.UP] = self._sides[SideKey.UP].turn_ccw()
-        self._sides[SideKey.DOWN] = self._sides[SideKey.DOWN].turn_cw()
-        front_side = self._sides[SideKey.FRONT]
-        self._sides[SideKey.FRONT] = self._sides[SideKey.LEFT]
-        self._sides[SideKey.LEFT] = self._sides[SideKey.BACK].turn_cw().turn_cw()
-        self._sides[SideKey.BACK] = self._sides[SideKey.RIGHT].turn_cw().turn_cw()
-        self._sides[SideKey.RIGHT] = front_side
+        self.sides[SideKey.UP] = self.sides[SideKey.UP].turn_ccw()
+        self.sides[SideKey.DOWN] = self.sides[SideKey.DOWN].turn_cw()
+        front_side = self.sides[SideKey.FRONT]
+        self.sides[SideKey.FRONT] = self.sides[SideKey.LEFT]
+        self.sides[SideKey.LEFT] = self.sides[SideKey.BACK].turn_cw().turn_cw()
+        self.sides[SideKey.BACK] = self.sides[SideKey.RIGHT].turn_cw().turn_cw()
+        self.sides[SideKey.RIGHT] = front_side
 
     def turn_up(self):
         """Turn all Cube Up"""
-        self._sides[SideKey.LEFT] = self._sides[SideKey.LEFT].turn_ccw()
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.RIGHT].turn_cw()
-        front_side = self._sides[SideKey.FRONT]
-        self._sides[SideKey.FRONT] = self._sides[SideKey.DOWN]
-        self._sides[SideKey.DOWN] = self._sides[SideKey.BACK]
-        self._sides[SideKey.BACK] = self._sides[SideKey.UP]
-        self._sides[SideKey.UP] = front_side
+        self.sides[SideKey.LEFT] = self.sides[SideKey.LEFT].turn_ccw()
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.RIGHT].turn_cw()
+        front_side = self.sides[SideKey.FRONT]
+        self.sides[SideKey.FRONT] = self.sides[SideKey.DOWN]
+        self.sides[SideKey.DOWN] = self.sides[SideKey.BACK]
+        self.sides[SideKey.BACK] = self.sides[SideKey.UP]
+        self.sides[SideKey.UP] = front_side
 
 
     def turn_down(self):
         """Turn all Cube Down"""
-        self._sides[SideKey.LEFT] = self._sides[SideKey.LEFT].turn_cw()
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.RIGHT].turn_ccw()
-        front_side = self._sides[SideKey.FRONT]
-        self._sides[SideKey.FRONT] = self._sides[SideKey.UP]
-        self._sides[SideKey.UP] = self._sides[SideKey.BACK]
-        self._sides[SideKey.BACK] = self._sides[SideKey.DOWN]
-        self._sides[SideKey.DOWN] = front_side
+        self.sides[SideKey.LEFT] = self.sides[SideKey.LEFT].turn_cw()
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.RIGHT].turn_ccw()
+        front_side = self.sides[SideKey.FRONT]
+        self.sides[SideKey.FRONT] = self.sides[SideKey.UP]
+        self.sides[SideKey.UP] = self.sides[SideKey.BACK]
+        self.sides[SideKey.BACK] = self.sides[SideKey.DOWN]
+        self.sides[SideKey.DOWN] = front_side
 
     def rotate_left(self):
         """Rotate all Cube Left"""
-        self._sides[SideKey.FRONT] = self._sides[SideKey.FRONT].turn_ccw()
-        self._sides[SideKey.BACK] = self._sides[SideKey.BACK].turn_cw()
-        up_side = self._sides[SideKey.UP]
-        self._sides[SideKey.UP] = self._sides[SideKey.RIGHT].turn_ccw()
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.DOWN].turn_ccw()
-        self._sides[SideKey.DOWN] = self._sides[SideKey.LEFT].turn_ccw()
-        self._sides[SideKey.LEFT] = up_side.turn_ccw()
+        self.sides[SideKey.FRONT] = self.sides[SideKey.FRONT].turn_ccw()
+        self.sides[SideKey.BACK] = self.sides[SideKey.BACK].turn_cw()
+        up_side = self.sides[SideKey.UP]
+        self.sides[SideKey.UP] = self.sides[SideKey.RIGHT].turn_ccw()
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.DOWN].turn_ccw()
+        self.sides[SideKey.DOWN] = self.sides[SideKey.LEFT].turn_ccw()
+        self.sides[SideKey.LEFT] = up_side.turn_ccw()
 
     def rotate_right(self):
         """Rotate all Cube Right"""
-        self._sides[SideKey.FRONT] = self._sides[SideKey.FRONT].turn_cw()
-        self._sides[SideKey.BACK] = self._sides[SideKey.BACK].turn_ccw()
-        up_side = self._sides[SideKey.UP]
-        self._sides[SideKey.UP] = self._sides[SideKey.LEFT].turn_cw()
-        self._sides[SideKey.LEFT] = self._sides[SideKey.DOWN].turn_cw()
-        self._sides[SideKey.DOWN] = self._sides[SideKey.RIGHT].turn_cw()
-        self._sides[SideKey.RIGHT] = up_side.turn_cw()
+        self.sides[SideKey.FRONT] = self.sides[SideKey.FRONT].turn_cw()
+        self.sides[SideKey.BACK] = self.sides[SideKey.BACK].turn_ccw()
+        up_side = self.sides[SideKey.UP]
+        self.sides[SideKey.UP] = self.sides[SideKey.LEFT].turn_cw()
+        self.sides[SideKey.LEFT] = self.sides[SideKey.DOWN].turn_cw()
+        self.sides[SideKey.DOWN] = self.sides[SideKey.RIGHT].turn_cw()
+        self.sides[SideKey.RIGHT] = up_side.turn_cw()
 
     def R(self):
         """Right 1/4 turn rotation up"""
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.RIGHT].turn_cw()
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.RIGHT].turn_cw()
         front_side_tiles = self.front_side().get_12()
-        self._sides[SideKey.FRONT].tiles[1:3] = self.down_side().get_12()
-        self._sides[SideKey.DOWN].tiles[1:3] = self.back_side().get_12()
-        self._sides[SideKey.BACK].tiles[1:3] = self.up_side().get_12()
-        self._sides[SideKey.UP].tiles[1:3] = front_side_tiles
+        self.sides[SideKey.FRONT].tiles[1:3] = self.down_side().get_12()
+        self.sides[SideKey.DOWN].tiles[1:3] = self.back_side().get_12()
+        self.sides[SideKey.BACK].tiles[1:3] = self.up_side().get_12()
+        self.sides[SideKey.UP].tiles[1:3] = front_side_tiles
 
     def Ri(self):
         """Right 1/4 turn rotation down"""
-        self._sides[SideKey.RIGHT] = self._sides[SideKey.RIGHT].turn_ccw()
+        self.sides[SideKey.RIGHT] = self.sides[SideKey.RIGHT].turn_ccw()
         front_side_tiles = self.front_side().get_12()
-        self._sides[SideKey.FRONT].tiles[1:3] = self._sides[SideKey.UP].get_12()
-        self._sides[SideKey.UP].tiles[1:3] = self._sides[SideKey.BACK].get_12()
-        self._sides[SideKey.BACK].tiles[1:3] = self._sides[SideKey.DOWN].get_12()
-        self._sides[SideKey.DOWN].tiles[1:3] = front_side_tiles
+        self.sides[SideKey.FRONT].tiles[1:3] = self.sides[SideKey.UP].get_12()
+        self.sides[SideKey.UP].tiles[1:3] = self.sides[SideKey.BACK].get_12()
+        self.sides[SideKey.BACK].tiles[1:3] = self.sides[SideKey.DOWN].get_12()
+        self.sides[SideKey.DOWN].tiles[1:3] = front_side_tiles
 
     def L(self):
         """Left 1/4 turn rotation down"""
@@ -336,7 +345,7 @@ class RubicsCube2x2(object):
         return seed
 
     def is_solved(self) -> bool:
-        for key, side in self._sides.items():
+        for key, side in self.sides.items():
             first_tile = side.tiles[0]
             for tile in side.tiles:
                 if not tile.is_equal_to(first_tile):

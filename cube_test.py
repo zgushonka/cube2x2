@@ -13,6 +13,10 @@ from print_cube_console import show_cube_console
 cube = RubicsCube2x2()
 show_cube_console(cube)
 
-seed = cube.do_n_random_moves(5)
-print(seed)
-show_cube_console(cube)
+cube2 = RubicsCube2x2()
+cube2.turn_left()
+cube2.U()
+cube2.Di()
+show_cube_console(cube2)
+
+print(cube.is_equal_to(cube2))
