@@ -59,20 +59,12 @@ class Side2x2(object):
 
     def turn_cw(self):
         """Turn Side CW"""
-        last = self.tiles[3]
-        self.tiles[3] = self.tiles[2]
-        self.tiles[2] = self.tiles[1]
-        self.tiles[1] = self.tiles[0]
-        self.tiles[0] = last
+        self.tiles.insert(0, self.tiles.pop())
         return self
 
     def turn_ccw(self):
         """Turn Side CCW"""
-        first = self.tiles[0]
-        self.tiles[0] = self.tiles[1]
-        self.tiles[1] = self.tiles[2]
-        self.tiles[2] = self.tiles[3]
-        self.tiles[3] = first
+        self.tiles.append(self.tiles.pop(0))
         return self
 
     def get_12(self):
