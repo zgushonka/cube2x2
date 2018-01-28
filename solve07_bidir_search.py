@@ -2,7 +2,7 @@
 """ depth step by step brute force """
 
 from RubicsCube2x2 import RubicsCube2x2
-from create_random_cube import create_cube
+from create_random_cube import create_scrumbled_cube
 from solve06_CubeState import CubeState
 from print_solution import print_solution
 from random import randint
@@ -13,10 +13,8 @@ def make_next_layer_for_cube(cube_state) -> dict:
     """ we need to go deeper """
     next_layer = {}
     for next_move in range(0, 6): # sequentive next move
-        previous_move = -1
-        if cube_state.path:
-            previous_move = cube_state.path[-1]
-        if (previous_move ^ 1) != next_move: # if next_move is not back move, then continue
+        previous_move = None if not cube_state.path else cube_state.path[-1]
+        if previous_move != (next_move ^ 1): # if next_move is not back move, then continue
             next_cube_state = CubeState(cube_state.cube, cube_state.path, next_move)
             next_layer[next_cube_state.cube.hash()] = next_cube_state
     return next_layer
@@ -84,7 +82,7 @@ def main():
     depth = 7
     seed_moves_count = randint(7, 20)
 
-    cube = create_cube(seed_moves_count)
+    cube = create_scrumbled_cube(seed_moves_count)
     solution = solve_cube(cube, depth)
     if solution:
         print_solution(cube, solution)

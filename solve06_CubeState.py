@@ -7,7 +7,7 @@ class CubeState(object):
     def __init__(self, cube=None, path=None, move=None):
         self.cube = deepcopy(cube) if cube else RubicsCube2x2()
         self.path = deepcopy(path) if path else []
-        if move:
+        if move != None:
             self.cube.do_move(move)
             self.path.append(move)
 

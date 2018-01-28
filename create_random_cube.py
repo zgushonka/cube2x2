@@ -6,7 +6,7 @@ from RubicsCube2x2 import RubicsCube2x2
 from print_cube_console import show_cube_console
 
 
-def create_cube(moves_count = 1) -> RubicsCube2x2:
+def create_scrumbled_cube(moves_count = 1) -> RubicsCube2x2:
     """Create cube and apply seed"""
     new_cube = RubicsCube2x2()
 
