@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 """ depth step by step brute force """
 
-from RubicsCube2x2 import RubicsCube2x2
+from random import randint
 from create_random_cube import create_scrumbled_cube
 from solve06_CubeState import CubeState
 from print_solution import print_solution
-from random import randint
 
 from print_cube_console import show_cube_console
 
@@ -22,7 +21,7 @@ def make_next_layer_for_cube(cube_state) -> dict:
 
 def make_next_layer_for_layer(cube_layer) -> dict:
     next_layer_cubes = {}
-    for hash, cube in cube_layer.items():
+    for _, cube in cube_layer.items():
         next_branch = make_next_layer_for_cube(cube)
         next_layer_cubes.update(next_branch)
     return next_layer_cubes
@@ -76,6 +75,7 @@ def solve_cube(cube, limit) -> list:
         if current_depth >= limit:
             print('current_depth > limit')
             return []
+    return [] # supress warning
 
 
 def main():

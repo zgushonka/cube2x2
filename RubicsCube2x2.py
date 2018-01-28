@@ -53,7 +53,7 @@ class Side2x2(object):
         result = []
         for index in range(4):
             result.append(self.tiles[index].color.value)
-        for i in range(offset):
+        for _ in range(offset):
             result.insert(0, result.pop())
         return ''.join(result)
 
@@ -348,20 +348,20 @@ class RubicsCube2x2(object):
 
     def do_n_random_moves(self, n):
         seed = []
-        for i in range(0, n):
+        for _ in range(0, n):
             prevoius_move = None if not seed else seed[-1]
             move = self.do_random_move(prevoius_move)
             seed.append(move)
         return seed
 
     def is_solved(self) -> bool:
-        for key, side in self.sides.items():
+        for _, side in self.sides.items():
             if not side.is_solved():
                 return False
         return True
 
     def hash(self) -> str:
-        hash = ''
-        for key, side in self.sides.items():
-            hash += side.hash()
-        return hash
+        hash_ = ''
+        for _, side in self.sides.items():
+            hash_ += side.hash()
+        return hash_
