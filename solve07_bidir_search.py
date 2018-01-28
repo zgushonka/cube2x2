@@ -42,12 +42,6 @@ def combine_solution(dcube, icube) -> list:
         path.append(move ^ 1)
     return path
 
-def print_solution_cubes(dcube, icube):
-    show_cube_console(dcube)
-    print()
-    show_cube_console(icube)
-    print()
-
 def solve_cube(cube, limit) -> list:
     """solution"""
     cube_state = CubeState(cube)
