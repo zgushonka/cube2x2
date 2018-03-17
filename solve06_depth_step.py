@@ -39,10 +39,10 @@ def solve_cube(cube, limit) -> list:
 
 
 def main():
-    depth = 4
+    depth = 7
     seed_moves_count = depth
 
-    cube = create_scrumbled_cube(seed_moves_count)
+    cube = create_scrumbled_cube(seed_moves_count * 3)
     solution = solve_cube(cube, depth)
     if solution:
         print_solution(cube, solution)

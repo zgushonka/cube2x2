@@ -9,7 +9,7 @@ from copy import deepcopy
 from create_random_cube import create_scrumbled_cube
 from print_solution import print_solution
 
-SEED_MOVES_COUNT = 4
+SEED_MOVES_COUNT = 7
 
 SOLUTIONS = []
 DEPTH_LIMIT = SEED_MOVES_COUNT
@@ -43,18 +43,20 @@ def dynamic_solver(cube, move=None, solve_seed=None):
         return
     
     
-    # for next_move in range(0, 6): # sequentive next move
-    next_moves = random.sample(range(6), 6) # random next move
-    for next_move in next_moves:
+    for next_move in range(0, 6): # sequentive next move
+    # next_moves = random.sample(range(6), 6) # random next move
+    # for next_move in next_moves:
         if move != (next_move ^ 1): # if next_move is not back move, then continue
             if SOLUTIONS:
                 return # find only one solution
             dynamic_solver(my_cube, next_move, my_solve_seed)
 
 
-CUBE = create_scrumbled_cube(SEED_MOVES_COUNT)
+CUBE = create_scrumbled_cube(SEED_MOVES_COUNT * 3)
 solve_cube(CUBE)
 
-solution = SOLUTIONS[0]
-print_solution(CUBE, solution)
-
+if SOLUTIONS:
+    solution = SOLUTIONS[0]
+    print_solution(CUBE, solution)
+else:
+    print('no solution')

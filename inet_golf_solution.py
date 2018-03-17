@@ -49,3 +49,17 @@ for i in range(6):
                 tmp[state] = moveName[move] + turnName[2 - turn] + moveString
             state = applyMove(state, move)
     dict2 = tmp
+
+
+import sys;o=''.join;a=sys.argv[1];d=[{o((' ',x)[x in a[12]+a[19]+a[22]]for x in a):[]},{' '*4+(a[12]*2+' '*4+a[19]*2)*2+a[22]*4:[]}]
+for h in[0,1]*6:
+ for s,x in d[h].items():
+  for y in range(12):
+   d[h][s]=x+[y-[1,-1,1,3][h*y%4]];
+   if s in d[1-h]:print o('RUF'[x/4]+" 2'"[x%4]for x in d[0][s]+d[1][s][::-1]);exit()
+   s=o(s[ord(c)-97]for c in'acahabcdnpbfegefhugiovjgqkciljdeklflmmmnnvoopxphrqdjrrbsstttuuqsviwwwkxx'[y/4::3])
+
+char c[99],t[3][26]={"ZGONFZCPTEZBHUMZ","ZIQPHZRUGAZJWOCZ","ZACB@ZJHFDZKIGEZ"};
+r=20;
+f(int m,int n){int e,i,j;for(i=4;i--;){for(j=15;j--;)c[t[n][j+1]]=c[t[n][j]];c[m]="FRU"[n],c[m+1]="4'2 "[i],c[m+2]=0;for(e=0,j=68;j<76;j++) e+= (c[j]!=c[j+8]) + (c[j]!=c[j^1]);i&&e&&e<45-m*2&m<r?f(m+2,(n+1)%3),f(m+2,(n+2)%3):e||(puts(c),r=m);}}main(){scanf("%s",c+64);f(0,2),f(0,1),f(0,0);}
+
